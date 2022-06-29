@@ -1,0 +1,4 @@
+GitRepositoriesView.GitDirectories=C\:\\Spring\\ejemplo-redis\\.git;C\:\\Spring\\crud-example-mongo\\.git;C\:\\Spring\\crud-example\\.git;
+GitRepositoriesView.GitDirectories.relative=ejemplo-redis\\.git;crud-example-mongo\\.git;crud-example\\.git;
+core_autoIgnoreDerivedResources=false
+eclipse.preferences.version=1

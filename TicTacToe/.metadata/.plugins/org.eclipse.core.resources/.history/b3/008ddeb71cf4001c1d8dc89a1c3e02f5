@@ -1,0 +1,12 @@
+package com.springboot.app.game.service;
+
+import com.springboot.app.game.dto.GameDto;
+import com.springboot.app.game.entities.GameEntity;
+
+public interface IGameService {
+
+	public GameEntity create(GameEntity gameEntity);
+
+	public GameDto getGame(Integer id);
+
+}

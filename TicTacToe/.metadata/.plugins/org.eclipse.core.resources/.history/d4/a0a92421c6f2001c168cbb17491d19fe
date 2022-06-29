@@ -1,0 +1,44 @@
+package com.springboot.app.player.controllers;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.springboot.app.player.dtos.PlayerDto;
+import com.springboot.app.player.entities.PlayerEntity;
+import com.springboot.app.player.services.IPlayerService;
+
+@RestController
+@RequestMapping("/player")
+public class PlayerController {
+	
+	@Autowired
+	private IPlayerService playerService;
+	
+	@PostMapping
+	public ResponseEntity<PlayerDto> create(@RequestBody PlayerDto player) {
+		return new ResponseEntity<PlayerDto>(playerService.create(player), HttpStatus.CREATED);
+	}
+	
+	@GetMapping("/{username}")
+	public ResponseEntity<PlayerEntity> getPlayerByUsername(@PathVariable("username") String username) {
+		return new ResponseEntity<PlayerEntity> (playerService.getPlayerByUsername(username), HttpStatus.OK);
+	}
+	
+	@GetMapping("/{username}/id")
+	public ResponseEntity<Integer> getIdByUsername(@PathVariable("username") String username) {
+		return new ResponseEntity<Integer> (playerService.getIdByUsername(username), HttpStatus.OK);
+	}
+	
+	@GetMapping("id/{id}")
+	public ResponseEntity<PlayerDto> getPlayerById(@PathVariable("id") Integer id) {
+		return new ResponseEntity<PlayerDto>(playerService.getPlayerById(id), HttpStatus.OK);
+	}
+
+}

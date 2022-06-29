@@ -1,0 +1,30 @@
+package com.springboot.app.coordinate.services;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.springboot.app.coordinate.dto.CoordinateDto;
+import com.springboot.app.coordinate.entities.CoordinateEntity;
+import com.springboot.app.coordinate.repository.CoordinateRepository;
+import com.springboot.app.game.utils.Mapper;
+
+@Service
+public class CoordinateService implements ICoordinateService {
+	
+	@Autowired
+	private CoordinateRepository coordinateRepository;
+
+	@Override
+	public void create(CoordinateDto coordinateDto) {
+		CoordinateEntity coordinate = new Mapper().toEntity(coordinateDto, new CoordinateEntity());
+		coordinateRepository.save(coordinate);
+	}
+
+	@Override
+	public List<CoordinateEntity> getAllCoordinates() {
+		return coordinateRepository.findAll();
+	}
+
+}

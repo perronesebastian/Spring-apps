@@ -1,0 +1,25 @@
+package com.springboot.app.coordinate.services;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.springboot.app.coordinate.entities.CoordinateEntity;
+import com.springboot.app.coordinate.repository.CoordinateRepository;
+
+@Service
+public class CoordinateService implements ICoordinateService {
+	
+	@Autowired
+	private CoordinateRepository coordinateRepository;
+
+
+	@Override
+	public void create(CoordinateEntity coordinateEntity) {
+		CoordinateEntity coordinate = coordinateEntity;
+		coordinateEntity.setBoard_id(boardId);
+		coordinateEntity.setRow_value(row);
+		coordinateEntity.setColumn_value(column);
+		coordinateRepository.save(coordinateEntity);
+	}
+
+}

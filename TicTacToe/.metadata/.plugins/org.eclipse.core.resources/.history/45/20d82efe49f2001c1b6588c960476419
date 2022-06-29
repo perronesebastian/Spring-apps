@@ -1,0 +1,42 @@
+package com.springboot.app.game.dto;
+
+public class CoordinateDto {
+	
+	private Integer board_id;
+	private Integer player_id;
+	private Integer row_value;
+	private Integer column_value;
+	
+	public Integer getBoard_id() {
+		return board_id;
+	}
+
+	public void setBoard_id(Integer board_id) {
+		this.board_id = board_id;
+	}
+
+	public Integer getPlayer_id() {
+		return player_id;
+	}
+
+	public void setPlayer_id(Integer player_id) {
+		this.player_id = player_id;
+	}
+
+	public Integer getRow_value() {
+		return row_value;
+	}
+
+	public void setRow_value(Integer row_value) {
+		this.row_value = row_value;
+	}
+
+	public Integer getColumn_value() {
+		return column_value;
+	}
+
+	public void setColumn_value(Integer column_value) {
+		this.column_value = column_value;
+	}
+
+}

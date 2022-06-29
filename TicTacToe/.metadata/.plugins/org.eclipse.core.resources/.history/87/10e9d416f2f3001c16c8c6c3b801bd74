@@ -1,0 +1,12 @@
+package com.springboot.app.player.services;
+
+import com.springboot.app.player.dtos.PlayerDto;
+import com.springboot.app.player.entities.PlayerEntity;
+
+public interface IPlayerService {
+
+	PlayerDto create(PlayerDto player);
+	
+	PlayerDto getPlayerById(Integer id);
+
+}

@@ -1,0 +1,40 @@
+package com.example.users.services;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
+import com.example.users.entity.Role;
+import com.example.users.entity.User;
+import com.example.users.entity.UserInRol;
+import com.example.users.repository.RoleRepository;
+import com.example.users.repository.UserInRoleRepository;
+import com.example.users.repository.UserRepository;
+
+@Service
+public class UserInRolService {
+	
+	@Autowired
+	private RoleRepository roleRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
+	
+	@Autowired
+	private UserInRoleRepository repository;
+
+	public List<Role> getUserRolesById(Integer userID) {
+		return roleRepository.findByUserId(userID);
+	}
+
+	public void assignRole(Integer userID, Integer roleID) {
+		UserInRol userInRol = new UserInRol();
+		userInRol.setUser(new UserService().getUserById(userID));
+		userInRol.setRole(new RoleService().getRoleById(roleID));
+	}
+
+}

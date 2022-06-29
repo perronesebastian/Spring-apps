@@ -1,0 +1,13 @@
+package com.springboot.app.game.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import com.springboot.app.game.entities.GameEntity;
+
+public interface GameRepository extends JpaRepository<GameEntity, Integer> {
+	
+	@Query("SELECT g FROM GameEntity g WHERE g.player_id_1=?1 OR g.player_id_2=?1")
+	GameEntity findByPlayerId(Integer userId); 
+	
+}

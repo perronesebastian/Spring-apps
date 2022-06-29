@@ -1,0 +1,11 @@
+package com.springboot.app.player.services;
+
+import com.springboot.app.player.dtos.CreatePlayerRequest;
+
+public interface IPlayerService {
+
+	CreatePlayerRequest create(CreatePlayerRequest player);
+	
+	CreatePlayerRequest getPlayerById(Integer id);
+
+}

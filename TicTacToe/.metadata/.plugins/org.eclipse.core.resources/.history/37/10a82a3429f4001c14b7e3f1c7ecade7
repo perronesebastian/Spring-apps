@@ -1,0 +1,21 @@
+package com.springboot.app.player.restClient;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class WebClientConfig {
+	
+	@Value("${coordinate.url:localhost:8004}")
+	private String coordinateURL;
+	
+	@Value("${web-client.conn-timeout:3000}")
+    private int connectionTimeout;
+    
+    @Value("${web-client.read-timeout:3000}")
+    private int readTimeout;
+    
+    public WebClientConfig() {
+    	System.out.println(coordinateURL);
+    }
+}

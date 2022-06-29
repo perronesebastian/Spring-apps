@@ -1,0 +1,44 @@
+package com.springboot.app.board.services;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+import com.springboot.app.board.dto.BoardResponse;
+import com.springboot.app.board.entities.BoardEntity;
+import com.springboot.app.board.repository.BoardRepository;
+
+@Service
+public class BoardService implements IBoardService {
+	
+	@Autowired
+	private BoardRepository boardRepository;
+	
+	@Override
+	public BoardResponse create(BoardResponse boardDto) {
+		BoardEntity boardEntity = new BoardEntity();
+		boardRepository.save(this.toEntity(boardDto, boardEntity));
+		return this.toDto(boardEntity);
+	}
+	
+	@Override
+	public BoardResponse getBoardById(Integer id) {
+		BoardEntity boardEntity = boardRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Board with id %s does not exist", id)));
+		BoardResponse boardDto = this.toDto(boardEntity);
+		return boardDto;
+	}
+
+	private BoardResponse toDto(BoardEntity boardEntity) {
+		BoardResponse boardDto = new BoardResponse();
+		boardDto.setId(boardEntity.getId());
+		boardDto.setDimension(boardEntity.getDimension());
+		return boardDto;
+	}
+	
+	private BoardEntity toEntity(BoardResponse boardDto, BoardEntity boardEntity) {
+		boardEntity.setId(boardDto.getId());
+		boardEntity.setDimension(boardDto.getDimension());
+		return boardEntity;
+	}
+
+}

@@ -1,0 +1,32 @@
+package com.springboot.app.player.controllers;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.springboot.app.player.dtos.CreatePlayerRequest;
+import com.springboot.app.player.services.IPlayerService;
+
+@RestController
+@RequestMapping("/player")
+public class PlayerController {
+	
+	@Autowired
+	private IPlayerService playerService;
+	
+	@PostMapping
+	public ResponseEntity<CreatePlayerRequest> create(@RequestBody CreatePlayerRequest player) {
+		return new ResponseEntity<CreatePlayerRequest>(playerService.create(player), HttpStatus.CREATED);
+	}
+	
+	@GetMapping("id/{id}")
+	public ResponseEntity<CreatePlayerRequest> getPlayerById(@PathVariable("id") Integer id) {
+		return new ResponseEntity<CreatePlayerRequest>(playerService.getPlayerById(id), HttpStatus.OK);
+	}
+}

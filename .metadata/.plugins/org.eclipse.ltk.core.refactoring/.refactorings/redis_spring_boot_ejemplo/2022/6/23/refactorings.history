@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;redis.properties&apos; to &apos;users-app/src/main/resources&apos;&#x0D;&#x0A;- Original project: &apos;redis_spring_boot_ejemplo&apos;&#x0D;&#x0A;- Destination element: &apos;users-app/src/main/resources&apos;&#x0D;&#x0A;- Original element: &apos;redis.properties&apos;" description="Copy file" destination="=users-app/src\/main\/resources=/maven.pomderived=/true=/" element1="src/main/resources/redis.properties" files="1" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1654206833257" units="0" version="1.0"/>
+</session>

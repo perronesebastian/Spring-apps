@@ -1,0 +1,60 @@
+package com.springboot.app.board.services;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
+import com.springboot.app.board.clients.CoordinateClientRest;
+import com.springboot.app.board.dto.BoardDto;
+import com.springboot.app.board.entities.BoardEntity;
+import com.springboot.app.board.repository.BoardRepository;
+import com.springboot.app.board.utils.MapperBoard;
+
+@Service
+public class BoardService implements IBoardService {
+	
+	@Autowired
+	private BoardRepository boardRepository;
+	
+	@Autowired
+	private CoordinateClientRest coordinateClientRest;
+	
+	private static final Integer DIMENSION = 3;
+	
+	@Override
+	public BoardEntity create(BoardEntity board) {
+		BoardEntity boardEntity = board;
+		return boardRepository.save(boardEntity);
+	}
+	
+	
+	public void createCoordinates(Integer DIMENSION, Integer boardId) {
+		for (Integer i = 0; i < DIMENSION; i++ ) {
+			for (Integer j = 0; j < DIMENSION; j++ ) {
+				coordinateClientRest.create(boardId, i, j);
+			}
+		}
+	}
+
+	@Override
+	public Integer getBoardId() {
+		return boardRepository.findBoardEntity().getId();
+	}
+
+	@Override
+	public BoardDto getBoardById(Integer id) {
+		Optional<BoardEntity> boardEntity = repository.findById(id);
+		if (boardEntity.isPresent()) {
+			BoardDto boardDto = new MapperBoard().toDto(boardEntity.get());
+			return boardDto;
+		} else {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+		}
+	}
+
+	
+
+}

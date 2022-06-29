@@ -1,0 +1,10 @@
+package com.springboot.app.board.clients;
+
+public class Snippet {
+	public BoardDto toDto(BoardEntity boardEntity) {
+			BoardDto boardDto = new BoardDto();
+			boardDto.setDimension(boardEntity.getDimension());
+			return boardDto;
+		}
+}
+

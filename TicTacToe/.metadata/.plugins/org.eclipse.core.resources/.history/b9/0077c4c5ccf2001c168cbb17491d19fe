@@ -1,0 +1,13 @@
+package com.springboot.app.coordinate.clients;
+
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+@FeignClient(name = "tictactoe-player", url = "localhost:8002")
+public interface PlayerClientRest {
+	
+	@GetMapping("/player/{username}/id")
+	public Integer getIdByUsername(@PathVariable("username") String username);
+	
+}

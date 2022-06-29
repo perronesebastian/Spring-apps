@@ -1,0 +1,26 @@
+package com.springboot.app.game.utils;
+
+import com.springboot.app.game.dto.GameDto;
+import com.springboot.app.game.entities.GameEntity;
+
+public class MapperGame {
+	
+	public GameDto toDto(GameEntity gameEntity) {
+		GameDto gameDto = new GameDto();
+		gameDto.setBoard_id(gameEntity.getBoard_id());
+		gameDto.setPlayer_id_1(gameEntity.getPlayer_id_1());
+		gameDto.setPlayer_id_2(gameEntity.getPlayer_id_2());
+		gameDto.setState(gameEntity.getState());
+		gameDto.setTurn(gameEntity.getTurn());
+		return gameDto;
+	}
+	
+	public GameEntity toEntity(GameDto gameDto, GameEntity gameEntity) {
+		gameEntity.setBoard_id(gameDto.getBoard_id());
+		gameEntity.setPlayer_id_1(gameDto.getPlayer_id_1());
+		gameEntity.setPlayer_id_2(gameDto.getPlayer_id_2());
+		gameEntity.setState(gameDto.getState());
+		gameEntity.setTurn(gameDto.getTurn());
+		return gameEntity;
+	}
+}

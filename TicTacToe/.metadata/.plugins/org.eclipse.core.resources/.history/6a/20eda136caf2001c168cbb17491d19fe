@@ -1,0 +1,22 @@
+package com.springboot.app.game.dto;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class PlayerDto {
+	
+	private Integer id;
+	
+	private String username;
+	
+	private List<CoordinateDto> coordinates;
+	
+
+
+	public PlayerDto() {
+		this.coordinates = new ArrayList<>();
+	}
+	
+
+	
+}

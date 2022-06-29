@@ -1,0 +1,48 @@
+package com.springboot.app.player.services;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
+import com.springboot.app.player.clients.CoordinateClientRest;
+import com.springboot.app.player.dtos.CreatePlayerRequest;
+import com.springboot.app.player.entities.PlayerEntity;
+import com.springboot.app.player.repository.PlayerRepository;
+
+@Service
+public class PlayerService implements IPlayerService {
+	
+	@Autowired
+	private PlayerRepository playerRepository;
+	
+	@Autowired
+	private CoordinateClientRest coordinateClientRest;
+
+	@Override
+	public CreatePlayerResponse create(CreatePlayerRequest player) {
+		playerRepository.save(this.toEntity(player, new PlayerEntity()));
+		return this.toDto(playerEntity);
+	}
+	
+	@Override
+	public CreatePlayerRequest getPlayerById(Integer id) {
+		PlayerEntity playerEntity = playerRepository.findById(id)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Player with id %s does not exist", id)));;
+		return this.toDto(playerEntity);	
+	}
+	
+	private CreatePlayerRequest toDto(PlayerEntity playerEntity) {
+		CreatePlayerRequest playerDto = new CreatePlayerRequest();
+		playerDto.setId(playerEntity.getId());
+		playerDto.setCoordinates(coordinateClientRest.getCoordinatesById(playerEntity.getId()));
+		playerDto.setUsername(playerEntity.getUsername());
+		return playerDto;
+	}
+	
+	private PlayerEntity toEntity(CreatePlayerRequest playerDto, PlayerEntity playerEntity) {
+		playerEntity.setUsername(playerDto.getUsername());
+		playerEntity.setPassword(playerDto.getPassword());
+		return playerEntity;
+	}
+}

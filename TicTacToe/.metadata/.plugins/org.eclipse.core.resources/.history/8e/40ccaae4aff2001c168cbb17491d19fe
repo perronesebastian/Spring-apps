@@ -1,0 +1,18 @@
+package com.springboot.app.game.service;
+
+import java.util.List;
+
+import com.springboot.app.game.dto.CoordinateDto;
+import com.springboot.app.game.dto.GameDto;
+import com.springboot.app.game.dto.PlayerDto;
+import com.springboot.app.game.entities.GameEntity;
+
+public interface IGameService {
+
+	public GameEntity create(String username_1, String username_2);
+
+	public GameDto getGame(Integer id);
+
+	public void put(String username, CoordinateDto target);
+
+}

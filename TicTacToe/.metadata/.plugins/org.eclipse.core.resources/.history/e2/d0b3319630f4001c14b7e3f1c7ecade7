@@ -1,0 +1,5 @@
+package com.springboot.app.player.restClient;
+
+public class CoordinateRestClient {
+
+}

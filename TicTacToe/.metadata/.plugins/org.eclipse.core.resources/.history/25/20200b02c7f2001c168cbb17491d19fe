@@ -1,0 +1,57 @@
+package com.springboot.app.player.services;
+
+
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
+import com.springboot.app.player.dtos.PlayerDto;
+import com.springboot.app.player.entities.PlayerEntity;
+import com.springboot.app.player.repository.PlayerRepository;
+import com.springboot.app.player.utils.MapperPlayer;
+
+@Service
+public class PlayerService implements IPlayerService {
+	
+	@Autowired
+	private PlayerRepository playerRepository;
+
+	@Override
+	public PlayerEntity create(PlayerEntity player) {
+		return playerRepository.save(player);
+	}
+	
+	@Override
+	public PlayerEntity getPlayerByUsername(String username) {
+		return playerRepository.findByUsername(username).get();
+
+	}
+
+	@Override
+	public Integer getIdByUsername(String username) {
+		return getPlayerByUsername(username).getId();
+	}
+
+	@Override
+	public PlayerDto getPlayerById(Integer id) {
+		Optional<PlayerEntity> playerEntity = playerRepository.findById(id);
+		if (playerEntity.isPresent()) {
+			PlayerDto playerDto = new MapperPlayer().toDto(playerEntity.get());
+			return playerDto;
+		} else {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
+}

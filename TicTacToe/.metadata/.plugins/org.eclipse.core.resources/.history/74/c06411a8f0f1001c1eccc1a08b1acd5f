@@ -1,0 +1,11 @@
+package com.springboot.app.coordinate.services;
+
+import com.springboot.app.coordinate.dto.CoordinateDto;
+import com.springboot.app.coordinate.entities.CoordinateEntity;
+
+public interface ICoordinateService {
+
+	public CoordinateDto create(CoordinateDto coordinateDto);
+
+
+}

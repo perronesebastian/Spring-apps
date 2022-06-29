@@ -1,0 +1,11 @@
+package com.springboot.app.board.services;
+
+import com.springboot.app.board.dto.BoardDto;
+
+public interface IBoardService {
+	
+	BoardDto create(BoardDto board);
+
+	BoardDto getBoardById(Integer id);
+
+}

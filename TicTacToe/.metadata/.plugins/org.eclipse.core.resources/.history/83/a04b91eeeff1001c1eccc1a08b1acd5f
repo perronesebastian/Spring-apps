@@ -1,0 +1,27 @@
+package com.springboot.app.game.utils;
+
+import com.springboot.app.coordinate.dto.CoordinateDto;
+import com.springboot.app.coordinate.entities.CoordinateEntity;
+import com.springboot.app.game.dto.GameDto;
+import com.springboot.app.game.entities.GameEntity;
+
+public class Mapper {
+	
+	public CoordinateDto toDto(CoordinateEntity coordinateEntity) {
+		CoordinateDto coordinateDto = new CoordinateDto();
+		coordinateDto.setBoard_id(coordinateEntity.getBoard_id());
+		coordinateDto.setPlayer_id(coordinateEntity.getPlayer_id());
+		coordinateDto.setColumn(coordinateEntity.getColumn_value());
+		coordinateDto.setRow(coordinateEntity.getRow_value());
+		return coordinateDto;
+	}
+	
+	public GameEntity toEntity(GameDto gameDto, GameEntity gameEntity) {
+		gameEntity.setBoard_id(gameDto.getBoard_id());
+		gameEntity.setPlayer_id_1(gameDto.getPlayer_id_1());
+		gameEntity.setPlayer_id_2(gameDto.getPlayer_id_2());
+		gameEntity.setState(gameDto.getState());
+		gameEntity.setTurn(gameDto.getTurn());
+		return gameEntity;
+	}
+}

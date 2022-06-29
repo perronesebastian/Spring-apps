@@ -1,0 +1,45 @@
+package com.springboot.app.game.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
+import com.springboot.app.game.clients.BoardClientRest;
+import com.springboot.app.game.clients.PlayerClientRest;
+import com.springboot.app.game.dto.GameDto;
+import com.springboot.app.game.entities.GameEntity;
+import com.springboot.app.game.repository.GameRepository;
+
+
+@Service
+public class GameService implements IGameService {
+		
+	@Autowired
+	public PlayerClientRest playerClientRest;
+	
+	@Autowired
+	public BoardClientRest boardClientRest;
+	
+	@Autowired
+	private GameRepository gameRepository;
+	
+	@Override
+	public GameEntity create(GameEntity gameEntity) {
+		return gameRepository.save(gameEntity);
+	}
+	
+	@Override
+	public GameDto getGame(Integer id) {
+		GameEntity gameEntity = gameRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Game id %s does not exist", id)));
+		return this.toDto(gameEntity);
+	}
+	
+	private GameDto	toDto(GameEntity gameEntity) {
+		GameDto gameDto = new GameDto();
+		gameDto.setBoard(boardClientRest.getBoardById(gameEntity.getBoard_id()));
+		gameDto.setPlayer_1(playerClientRest.getPlayerById(gameEntity.getPlayer_id_1()));
+		gameDto.setPlayer_2(playerClientRest.getPlayerById(gameEntity.getPlayer_id_2()));
+		return gameDto;
+	}
+}

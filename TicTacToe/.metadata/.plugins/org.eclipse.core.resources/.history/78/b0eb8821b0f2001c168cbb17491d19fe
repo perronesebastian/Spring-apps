@@ -1,0 +1,83 @@
+package com.springboot.app.game.service;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import org.apache.catalina.mapper.Mapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.springboot.app.game.clients.BoardClientRest;
+import com.springboot.app.game.clients.CoordinateClientRest;
+import com.springboot.app.game.clients.PlayerClientRest;
+import com.springboot.app.game.dto.BoardDto;
+import com.springboot.app.game.dto.CoordinateDto;
+import com.springboot.app.game.dto.GameDto;
+import com.springboot.app.game.dto.PlayerDto;
+import com.springboot.app.game.entities.GameEntity;
+import com.springboot.app.game.repository.GameRepository;
+
+
+@Service
+public class GameService implements IGameService {
+		
+	@Autowired
+	public PlayerClientRest playerClientRest;
+	
+	@Autowired
+	public BoardClientRest boardClientRest;
+	
+	@Autowired
+	private CoordinateClientRest coordinateClientRest;
+	
+	@Autowired
+	private GameRepository gameRepository;
+	
+
+	@Override
+	public GameEntity create(String username_1, String username_2) {
+		GameEntity game = new GameEntity();
+		game.setPlayer_id_1(playerClientRest.getIdByUsername(username_1));
+		game.setPlayer_id_2(playerClientRest.getIdByUsername(username_2));
+		game.setBoard_id(boardClientRest.createBoardAndGetId());
+		return gameRepository.save(game);
+	}
+	
+	@Override
+	public GameDto getGame(Integer id) {
+		GameEntity gameEntity = gameRepository.findByPlayersId(this.getPlayerId(username_1), this.getPlayerId(username_2));
+		GameDto gameDto = this.mapperToGameDto(gameEntity);
+		return gameDto;
+	}
+	
+	@Override
+	public void put(String username, CoordinateDto target) {
+		CoordinateDto coordinateDto = target;
+		GameEntity gameEntity = gameRepository.findByPlayerId(this.getPlayerId(username));
+		coordinateDto.setBoard_id(gameEntity.getBoard_id());
+		coordinateDto.setPlayer_id(this.getPlayerId(username));
+		coordinateClientRest.create(coordinateDto);
+	}
+	
+	private Integer getPlayerId(String username) {
+		return playerClientRest.getIdByUsername(username);
+	}
+	
+	private GameDto mapperToGameDto(GameEntity gameEntity) {
+		PlayerDto player1 = playerClientRest.getPlayerById(gameEntity.getPlayer_id_1());
+		PlayerDto player2 = playerClientRest.getPlayerById(gameEntity.getPlayer_id_2());
+		player1.setCoordinates(coordinateClientRest.getCoordinatesByPlayerId(this.getPlayerId(player1.getUsername())));
+		player2.setCoordinates(coordinateClientRest.getCoordinatesByPlayerId(this.getPlayerId(player2.getUsername())));
+		GameDto gameDto = new GameDto();
+		gameDto.setBoard(boardClientRest.getBoardById(gameEntity.getBoard_id()));
+		gameDto.setPlayer_1(player1);
+		gameDto.setPlayer_2(player2);
+		return gameDto;
+	}
+	
+	
+
+}

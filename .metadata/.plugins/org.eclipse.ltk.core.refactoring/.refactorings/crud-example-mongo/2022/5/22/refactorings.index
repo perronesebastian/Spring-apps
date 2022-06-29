@@ -1,0 +1,7 @@
+1653612253437	Rename package 'com.example.car'
+1653612269126	Rename package 'com.example.car.entity'
+1653612370938	Rename type 'ProductRepository'
+1653612530021	Rename type 'ProductService'
+1653613165825	Rename type 'ProductController'
+1653687777169	Rename package 'com.example.users.utils'
+1653860461606	Rename compilation unit 'ConvertUser.java'

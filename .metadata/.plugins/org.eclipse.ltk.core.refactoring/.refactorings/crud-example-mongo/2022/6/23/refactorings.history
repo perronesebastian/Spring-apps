@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy package &apos;com.example.utils&apos; to &apos;crud-example/src/main/java/com.example.users&apos;&#x0D;&#x0A;- Original project: &apos;crud-example-mongo&apos;&#x0D;&#x0A;- Destination element: &apos;crud-example/src/main/java/com.example.users&apos;&#x0D;&#x0A;- Original element: &apos;crud-example-mongo/src/main/java/com.example.utils&apos;" description="Copy package" destination="=crud-example/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.example.users" element1="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.example.utils" flags="589830" fragments="1" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyPackages" stamp="1654081969589" version="1.0"/>
+</session>

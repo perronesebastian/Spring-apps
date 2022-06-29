@@ -1,0 +1,5 @@
+package com.springboot.app.game.dto;
+
+public class GameResponse {
+
+}

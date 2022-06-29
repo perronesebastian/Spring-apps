@@ -1,0 +1,41 @@
+package com.springboot.app.player.restClient;
+
+import java.util.Arrays;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.server.ResponseStatusException;
+
+import com.springboot.app.player.dtos.CoordinateDto;
+
+@Service
+public class CoordinateRestClient {
+	
+	private static final Logger log = LoggerFactory.getLogger(CoordinateRestClient.class);
+	
+	@Autowired
+	@Qualifier("CoordinateWebClient")
+	private WebClient webClient;
+	
+	public List<CoordinateDto> getCoordinates(Integer playerId) {
+		try {
+			CoordinateDto[] list = webClient.method(HttpMethod.GET)
+					.uri("/coordinates/player/" + playerId)
+					.retrieve()
+					.bodyToMono(CoordinateDto[].class)
+					.block();
+			return Arrays.asList(list);
+		} catch (Exception e) {
+			log.error("get coordenadas error: {}", e.getMessage());
+			throw new ResponseStatusException(HttpStatus.CONFLICT, "fallo coordenadas");
+		}
+	}
+
+}

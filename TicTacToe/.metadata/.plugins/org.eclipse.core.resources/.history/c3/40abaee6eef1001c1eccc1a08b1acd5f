@@ -1,0 +1,5 @@
+package com.springboot.app.coordinate.dto;
+
+public class CoordinateDto {
+
+}
